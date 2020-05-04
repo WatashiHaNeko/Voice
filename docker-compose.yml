@@ -13,6 +13,17 @@ services:
           - "server"
       nginx-network:
 
+  php-fpm:
+    image: "php-fpm:voice-neko-report"
+    build:
+      context: "./"
+      dockerfile: "Dockerfile.php-fpm"
+    container_name: "voice-neko-report-php-fpm"
+    networks:
+      voice-neko-report-network:
+        aliases:
+          - "php-fpm"
+
 networks:
   voice-neko-report-network:
     name: "voice-neko-report-network"
