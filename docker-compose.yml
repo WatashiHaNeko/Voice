@@ -7,6 +7,11 @@ services:
     environment:
       VIRTUAL_HOST: "voice.neko.report"
       LETSENCRYPT_HOST: "voice.neko.report"
+    volumes:
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/conf.d:/etc/nginx/conf.d"
+      - "./nginx/certs:/etc/nginx/certs"
+      - "./index.php:/usr/share/nginx/html/index.php"
     networks:
       voice-neko-report-network:
         aliases:
@@ -19,6 +24,8 @@ services:
       context: "./"
       dockerfile: "Dockerfile.php-fpm"
     container_name: "voice-neko-report-php-fpm"
+    volumes:
+      - "./index.php:/var/www/html/index.php"
     networks:
       voice-neko-report-network:
         aliases:
