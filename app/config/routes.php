@@ -19,3 +19,13 @@ $routes->scope('/', function (RouteBuilder $builder) {
   $builder->fallbacks();
 });
 
+$routes->prefix('liff', function (RouteBuilder $builder) {
+  $builder->registerMiddleware('csrf', new CsrfProtectionMiddleware([
+    'httpOnly' => true,
+  ]));
+
+  $builder->applyMiddleware('csrf');
+
+  $builder->fallbacks(DashedRoute::class);
+});
+
