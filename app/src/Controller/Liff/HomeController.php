@@ -10,5 +10,21 @@ class HomeController extends LiffController {
 
   public function index() {
   }
+
+  public function auth() {
+    if ($this->request->is(['post'])) {
+      $lineUserId = $this->request->getData('line_user_id');
+
+      if (!empty($lineUserId)) {
+        $this->Auth->setUser([
+          'lineUserId' => $lineUserId,
+        ]);
+      }
+
+      return $this->redirect([
+        'action' => 'index',
+      ]);
+    }
+  }
 }
 
