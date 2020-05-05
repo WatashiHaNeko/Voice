@@ -9,6 +9,12 @@ use Cake\Mailer\Transport\MailTransport;
 return [
   'debug' => true,
 
+  'DebugKit' => [
+    'safeTld' => [
+      'report',
+    ],
+  ],
+
   'App' => [
     'namespace' => 'App',
     'encoding' => env('APP_ENCODING', 'UTF-8'),
