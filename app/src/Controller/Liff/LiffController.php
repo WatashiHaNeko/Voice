@@ -11,6 +11,8 @@ class LiffController extends AppController {
   public function initialize(): void {
     parent::initialize();
 
+    $this->loadModel('Users');
+
     $this->loadComponent('Auth');
   }
 
@@ -20,7 +22,7 @@ class LiffController extends AppController {
     $this->Auth->allow();
 
     if ($this->request->getParam('controller') !== 'Home' || $this->request->getParam('action') !== 'auth') {
-      if (empty($this->Auth->user())) {
+      if (empty($this->Auth->user('id'))) {
         $this->redirect([
           'controller' => 'Home',
           'action' => 'auth',
@@ -28,7 +30,17 @@ class LiffController extends AppController {
       }
     }
 
-    $this->set('authUser', $this->Auth->user());
+    $this->authUser = null;
+
+    if (!empty($this->Auth->user('id'))) {
+      $this->authUser = $this->Users->find()
+          ->where([
+            ['Users.id' => $this->Auth->user('id')],
+          ])
+          ->first();
+    }
+
+    $this->set('authUser', $this->authUser);
   }
 
   public function beforeRender(EventInterface $event): void {
