@@ -12,15 +12,20 @@
       'padding' => '16px',
       'width' => 'calc(100% - 32px)',
     ]) ?>">
-    <img src="<?= $this->Url->image('avatar-default.jpg') ?>" style="<?= $this->Html->style([
-        'display' => 'block',
-        'padding' => '4px',
+    <div style="<?= $this->Html->style([
         'width' => '148px',
         'height' => '148px',
-        'background-color' => '#ffffff',
-        'border' => 'solid 2px #d1d1d6',
-        'border-radius' => '50%',
       ]) ?>">
+      <img src="<?= $this->Url->image('avatar-default.jpg') ?>" style="<?= $this->Html->style([
+          'display' => 'block',
+          'padding' => '4px',
+          'width' => '100%',
+          'height' => '100%',
+          'background-color' => '#ffffff',
+          'border' => 'solid 2px #d1d1d6',
+          'border-radius' => '50%',
+        ]) ?>">
+    </div>
 
     <p style="<?= $this->Html->style([
         'margin-top' => '24px',
