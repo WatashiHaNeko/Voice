@@ -38,7 +38,10 @@
     <div style="<?= $this->Html->style([
         'margin-top' => '24px',
       ]) ?>">
-      <a href="#" style="<?= $this->Html->style([
+      <a href="<?= $this->Url->build([
+          'controller' => 'Voices',
+          'action' => 'create',
+        ]) ?>" style="<?= $this->Html->style([
           'display' => 'block',
           'padding' => '12px 24px',
           'line-height' => '20px',

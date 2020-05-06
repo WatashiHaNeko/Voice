@@ -1,16 +1,8 @@
-<?php
-$class = 'message';
-
-if (!empty($params['class'])) {
-  $class .= ' ' . $params['class'];
-}
-
-if (!isset($params['escape']) || $params['escape'] !== false) {
-  $message = h($message);
-}
-?>
-
-<div class="<?= h($class) ?>" onclick="this.classList.add('hidden');">
-  <?= $message ?>
-</div>
+<?php $this->append('script'); ?>
+<script>
+(function () {
+  alert("<?= $message ?>");
+})();
+</script>
+<?php $this->end(); ?>
 
