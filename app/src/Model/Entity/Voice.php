@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use App\Model\Table\VoicesTable;
+use Cake\Core\Configure;
 use Cake\ORM\Entity;
+use Cake\Routing\Asset;
 
 class Voice extends Entity {
   protected $_accessible = [
@@ -37,6 +39,10 @@ class Voice extends Entity {
   }
 
   public function getAvatarImageUrl() {
+    if (empty($this['avatar_image_media_type'])) {
+      return Asset::imageUrl('avatar-default.jpg');
+    }
+
     return implode('/', [
       Configure::read('App.fullBaseUrl'),
       'upload', 'voices', $this['id'],
