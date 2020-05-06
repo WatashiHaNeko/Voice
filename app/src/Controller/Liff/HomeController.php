@@ -14,11 +14,15 @@ class HomeController extends LiffController {
   }
 
   public function index() {
-    $voices = $this->Voices->find()
-        ->where([
-          ['Voices.user_id' => $this->authUser['id']],
-        ])
-        ->toList();
+    $voices = [];
+
+    if (!empty($this->authUser)) {
+      $voices = $this->Voices->find()
+          ->where([
+            ['Voices.user_id' => $this->authUser['id']],
+          ])
+          ->toList();
+    }
 
     $this->set(compact([
       'voices',
