@@ -30,6 +30,7 @@ services:
       voice-neko-report-network:
         aliases:
           - "php-fpm"
+      mysql-network:
 
 networks:
   voice-neko-report-network:
@@ -38,5 +39,7 @@ networks:
       config:
         - subnet: "172.41.0.0/24"
   nginx-network:
+    external: true
+  mysql-network:
     external: true
 
