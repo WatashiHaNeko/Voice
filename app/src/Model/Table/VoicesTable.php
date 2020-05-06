@@ -12,6 +12,12 @@ class VoicesTable extends Table {
     'image/png' => 'png',
   ];
 
+  public function initialize(array $config): void {
+    parent::initialize($config);
+
+    $this->hasMany('MessageSchedules');
+  }
+
   public function validationDefault(Validator $validator): Validator {
     $validator->notEmpty([
       'name' => [
