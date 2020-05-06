@@ -10,9 +10,19 @@ class HomeController extends LiffController {
     parent::initialize();
 
     $this->loadModel('Users');
+    $this->loadModel('Voices');
   }
 
   public function index() {
+    $voices = $this->Voices->find()
+        ->where([
+          ['Voices.user_id' => $this->authUser['id']],
+        ])
+        ->toList();
+
+    $this->set(compact([
+      'voices',
+    ]));
   }
 
   public function auth() {

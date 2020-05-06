@@ -22,7 +22,7 @@
     </title>
   </head>
 
-  <body>
+  <body style="background-color: #f2f2f7;">
     <main class="main">
       <?= $this->Flash->render() ?>
 
