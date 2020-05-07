@@ -54,8 +54,9 @@ class VoicesController extends LiffController {
         $this->Flash->success(__('{0}を新しく登録しました！', $voice['name']));
 
         return $this->redirect([
-          'controller' => 'Home',
-          'action' => 'index',
+          'controller' => 'Voices',
+          'action' => 'view',
+          $voice['id'],
         ]);
       } catch (AppException $exception) {
         $this->Flash->error($exception->getMessage());
