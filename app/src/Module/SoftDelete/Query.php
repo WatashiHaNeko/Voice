@@ -14,7 +14,7 @@ class Query extends CakeQuery {
       $repository = $this->getRepository();
 
       if (!isset($this->_options['withDeleted'])) {
-        $this->andWhere(['deleted IS' => null]);
+        $this->andWhere([sprintf('%s IS', $repository->aliasField('deleted')) => null]);
       }
 
       $repository->dispatchEvent('Model.beforeFind', [
