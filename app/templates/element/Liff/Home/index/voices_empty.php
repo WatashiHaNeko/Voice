@@ -10,7 +10,6 @@
   </div>
 
   <p style="<?= $this->Html->style([
-      'align-self' => 'stretch',
       'margin-top' => '24px',
       'font-size' => '16px',
       'font-weight' => '800',
