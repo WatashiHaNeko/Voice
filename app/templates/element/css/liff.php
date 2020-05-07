@@ -108,6 +108,7 @@ a:focus {
   padding: 20px 24px 12px;
   width: 100%;
   line-height: 20px;
+  background: #ffffff;
   border: solid 2px #8e8e93;
   border-radius: 28px;
   text-align: center;
@@ -117,6 +118,12 @@ a:focus {
 
 .field.invalid {
   border-color: #ff3b30;
+}
+
+.field.select {
+  height: 60px;
+  line-height: 24px;
+  border-radius: 30px;
 }
 
 .field-help {

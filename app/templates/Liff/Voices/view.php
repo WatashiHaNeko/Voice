@@ -47,7 +47,11 @@
     'bottom' => '32px',
     'left' => '16px',
   ]) ?>">
-  <a href="#" class="button">
+  <a href="<?= $this->Url->build([
+    'controller' => 'MessageSchedules',
+    'action' => 'create',
+    $voice['id'],
+  ]) ?>" class="button">
     <?= __('新しく通知を登録する') ?>
   </a>
 </div>
