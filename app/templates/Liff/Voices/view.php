@@ -24,7 +24,10 @@
   </div>
 
   <div>
-    <a href="#" class="button secondary">
+    <a href="<?= $this->Url->build([
+        'action' => 'update',
+        $voice['id'],
+      ]) ?>" class="button secondary">
       <?= __('編集') ?>
     </a>
   </div>

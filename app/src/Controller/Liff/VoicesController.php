@@ -91,5 +91,78 @@ class VoicesController extends LiffController {
       'voice',
     ]));
   }
+
+  public function update($id) {
+    $voice = $this->Voices->find()
+        ->where([
+          ['Voices.user_id' => $this->authUser['id']],
+          ['Voices.id' => $id],
+        ])
+        ->first();
+
+    if (empty($voice)) {
+      $this->Flash->error(__('ペットが見つかりませんでした。'));
+
+      return $this->redirect($this->request->referer());
+    }
+
+    if ($this->request->is(['put'])) {
+      try {
+        ConnectionManager::get('default')->transactional(function ($connection) use (&$voice) {
+          $this->Voices->patchEntity($voice, [
+            'name' => $this->request->getData('name'),
+          ]);
+
+          $voiceSaved = $this->Voices->save($voice);
+
+          if (!$voiceSaved) {
+            throw new AppException(__('ペットを登録できませんでした。'));
+          }
+
+          $avatarImageFile = $this->request->getData('avatar_image_file');
+
+          if ($avatarImageFile->getError() !== UPLOAD_ERR_NO_FILE) {
+            if ($avatarImageFile->getError() !== UPLOAD_ERR_OK) {
+              throw new AppException(__('{0}の情報を更新できませんでした。', $voice['name']));
+            }
+
+            $voice['avatar_image_media_type'] = $avatarImageFile->getClientMediaType();
+
+            $voiceSaved = $this->Voices->save($voice);
+
+            if (!$voiceSaved) {
+              throw new AppException(__('{0}の情報を更新できませんでした。', $voice['name']));
+            }
+
+            if (!file_exists($voice->getDirname())) {
+              $isDirectoryMade = mkdir($voice->getDirname(), 0777, true);
+
+              if (!$isDirectoryMade) {
+                throw new AppException(__('{0}の情報を更新できませんでした。', $voice['name']));
+              }
+            }
+
+            $avatarImageFile->moveTo($voice->getAvatarImageFilepath());
+          }
+        });
+
+        $this->Flash->success(__('{0}の情報を更新しました！', $voice['name']));
+
+        return $this->redirect([
+          'controller' => 'Voices',
+          'action' => 'view',
+          $voice['id'],
+        ]);
+      } catch (AppException $exception) {
+        $this->Flash->error($exception->getMessage());
+      } catch (\Exception $exception) {
+        $this->Flash->error(__('{0}の情報を更新できませんでした。', $voice['name']));
+      }
+    }
+
+    $this->set(compact([
+      'voice',
+    ]));
+  }
 }
 
