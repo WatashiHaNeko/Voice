@@ -2,7 +2,11 @@
     'padding-bottom' => '108px',
   ]) ?>">
   <?php foreach ($voices as $voice): ?>
-  <a href="#" style="<?= $this->Html->style([
+  <a href="<?= $this->Url->build([
+    'controller' => 'Voices',
+    'action' => 'view',
+    $voice['id'],
+  ]) ?>" style="<?= $this->Html->style([
       'display' => 'flex',
       'justify-content' => 'flex-start',
       'align-items' => 'stretch',

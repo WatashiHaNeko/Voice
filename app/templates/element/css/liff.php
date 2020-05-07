@@ -50,6 +50,30 @@ a:focus {
   opacity: 0.5;
 }
 
+.button.secondary {
+  top: 0;
+  padding: 8px 16px;
+  line-height: 16px;
+  background: #ffffff;
+  border: solid 2px #34c759;
+  box-shadow: none;
+  color: #34c759;
+  font-size: 16px;
+}
+
+.button.secondary:hover {
+  background: #34c759;
+  color: #ffffff;
+}
+
+.button.secondary:active {
+  transform: scale(0.9);
+}
+
+.button.secondary[disabled] {
+  opacity: 0.5;
+}
+
 .avatar {
   display: block;
   box-sizing: border-box;

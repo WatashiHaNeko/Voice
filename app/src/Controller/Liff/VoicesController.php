@@ -68,5 +68,26 @@ class VoicesController extends LiffController {
       'voice',
     ]));
   }
+
+  public function view($id) {
+    $voice = $this->Voices->find()
+        ->contain([
+          'MessageSchedules',
+        ])
+        ->where([
+          ['Voices.id' => $id],
+        ])
+        ->first();
+
+    if (empty($voice)) {
+      $this->Flash->error(__('ペットが見つかりませんでした。'));
+
+      return $this->redirect($this->request->referer());
+    }
+
+    $this->set(compact([
+      'voice',
+    ]));
+  }
 }
 
