@@ -35,13 +35,23 @@ class MessageSchedulesController extends LiffController {
         $scheduledTimeHour = intval($this->request->getData('scheduled_time.hour')) + ($scheduledTimeType * 12);
         $scheduledTimeMinute = intval($this->request->getData('scheduled_time.minute'));
 
-        $scheduledTime = (new Time(sprintf('%s:%s', $scheduledTimeHour, $scheduledTimeMinute), 'Asia/Tokyo'))->setTimezone('UTC');
+        $scheduledTime = new Time(sprintf('%s:%s', $scheduledTimeHour, $scheduledTimeMinute), 'Asia/Tokyo');
+        $nextSendDatetime = Time::now('Asia/Tokyo');
+
+        if (($nextSendDatetime->hour * 60) + $nextSendDatetime->minute > ($scheduledTime->hour * 60) + $scheduledTime->minute) {
+          $nextSendDatetime->addDay(1);
+        }
+
+        $nextSendDatetime->hour($scheduledTime->hour);
+        $nextSendDatetime->minute($scheduledTime->minute);
+        $nextSendDatetime->second(0);
 
         $messageSchedule = $this->MessageSchedules->newEntity([
           'user_id' => $this->authUser['id'],
           'voice_id' => $voiceId,
-          'scheduled_time' => $scheduledTime,
+          'scheduled_time' => $scheduledTime->setTimezone('UTC'),
           'message' => $this->request->getData('message'),
+          'next_send_datetime' => $nextSendDatetime->setTimezone('UTC'),
         ]);
 
         $messageScheduleSaved = $this->MessageSchedules->save($messageSchedule);
@@ -101,11 +111,21 @@ class MessageSchedulesController extends LiffController {
         $scheduledTimeHour = intval($this->request->getData('scheduled_time.hour')) + ($scheduledTimeType * 12);
         $scheduledTimeMinute = intval($this->request->getData('scheduled_time.minute'));
 
-        $scheduledTime = (new Time(sprintf('%s:%s', $scheduledTimeHour, $scheduledTimeMinute), 'Asia/Tokyo'))->setTimezone('UTC');
+        $scheduledTime = new Time(sprintf('%s:%s', $scheduledTimeHour, $scheduledTimeMinute), 'Asia/Tokyo');
+        $nextSendDatetime = Time::now('Asia/Tokyo');
+
+        if (($nextSendDatetime->hour * 60) + $nextSendDatetime->minute > ($scheduledTime->hour * 60) + $scheduledTime->minute) {
+          $nextSendDatetime->addDay(1);
+        }
+
+        $nextSendDatetime->hour($scheduledTime->hour);
+        $nextSendDatetime->minute($scheduledTime->minute);
+        $nextSendDatetime->second(0);
 
         $this->MessageSchedules->patchEntity($messageSchedule, [
-          'scheduled_time' => $scheduledTime,
+          'scheduled_time' => $scheduledTime->setTimezone('UTC'),
           'message' => $this->request->getData('message'),
+          'next_send_datetime' => $nextSendDatetime->setTimezone('UTC'),
         ]);
 
         $messageScheduleSaved = $this->MessageSchedules->save($messageSchedule);
