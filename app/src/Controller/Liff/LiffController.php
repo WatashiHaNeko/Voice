@@ -38,6 +38,15 @@ class LiffController extends AppController {
             ['Users.id' => $this->Auth->user('id')],
           ])
           ->first();
+
+      if (empty($this->authUser)) {
+        $this->Auth->setUser(null);
+
+        $this->redirect([
+          'controller' => 'Home',
+          'action' => 'auth',
+        ]);
+      }
     }
 
     $this->set('authUser', $this->authUser);
