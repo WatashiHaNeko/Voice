@@ -209,6 +209,20 @@ $scheduledTime = $messageSchedule['scheduled_time']->copy()->setTimezone('Asia/T
       </button>
     </div>
   <?= $this->Form->end() ?>
+
+  <div style="<?= $this->Html->style([
+      'margin-top' => '48px',
+    ]) ?>">
+    <?= $this->Form->postLink(__('通知を削除する'), [
+      'action' => 'delete',
+      $messageSchedule['id'],
+    ], [
+      'confirm' => __('通知を削除しますか？'),
+      'method' => 'delete',
+      'block' => true,
+      'class' => 'button danger',
+    ]) ?>
+  </div>
 </div>
 
 <?php $this->append('script'); ?>

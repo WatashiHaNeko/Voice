@@ -131,5 +131,42 @@ class MessageSchedulesController extends LiffController {
       'messageSchedule',
     ]));
   }
+
+  public function delete($id) {
+    $messageSchedule = $this->MessageSchedules->find()
+        ->where([
+          ['MessageSchedules.user_id' => $this->authUser['id']],
+          ['MessageSchedules.id' => $id],
+        ])
+        ->first();
+
+    if (empty($messageSchedule)) {
+      $this->Flash->error(__('通知が見つかりませんでした。'));
+
+      return $this->redirect($this->request->referer());
+    }
+
+    if ($this->request->is(['delete'])) {
+      try {
+        $messageScheduleDeleted = $this->MessageSchedules->delete($messageSchedule);
+
+        if (!$messageScheduleDeleted) {
+          throw new AppException(__('通知を削除できませんでした。'));
+        }
+
+        $this->Flash->success(__('通知を削除しました。'));
+      } catch (AppException $exception) {
+        $this->Flash->error($exception->getMessage());
+
+        return $this->redirect($this->request->referer());
+      }
+    }
+
+    return $this->redirect([
+      'controller' => 'Voices',
+      'action' => 'view',
+      $messageSchedule['voice_id'],
+    ]);
+  }
 }
 
