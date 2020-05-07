@@ -51,6 +51,20 @@
       </button>
     </div>
   <?= $this->Form->end() ?>
+
+  <div style="<?= $this->Html->style([
+      'margin-top' => '48px',
+    ]) ?>">
+    <?= $this->Form->postLink(__('ペットの登録を解除する'), [
+      'action' => 'delete',
+      $voice['id'],
+    ], [
+      'confirm' => __('ペットの登録を解除しますか？'),
+      'method' => 'delete',
+      'block' => true,
+      'class' => 'button danger',
+    ]) ?>
+  </div>
 </div>
 
 <?php $this->append('css'); ?>

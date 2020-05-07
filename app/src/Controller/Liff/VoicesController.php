@@ -7,6 +7,12 @@ use App\Exception\Exception as AppException;
 use Cake\Datasource\ConnectionManager;
 
 class VoicesController extends LiffController {
+  public function initialize(): void {
+    parent::initialize();
+
+    $this->loadModel('MessageSchedules');
+  }
+
   public function create() {
     $voice = null;
 
@@ -163,6 +169,47 @@ class VoicesController extends LiffController {
     $this->set(compact([
       'voice',
     ]));
+  }
+
+  public function delete($id) {
+    $voice = $this->Voices->find()
+        ->where([
+          ['Voices.user_id' => $this->authUser['id']],
+          ['Voices.id' => $id],
+        ])
+        ->first();
+
+    if (empty($voice)) {
+      $this->Flash->error(__('ペットが見つかりませんでした。'));
+
+      return $this->redirect($this->request->referer());
+    }
+
+    if ($this->request->is(['delete'])) {
+      try {
+        $voiceDeleted = $this->Voices->delete($voice);
+
+        if (!$voiceDeleted) {
+          throw new AppException(__('{0}の登録を解除できませんでした。', $voice['name']));
+        }
+
+        $this->MessageSchedules->deleteAll([
+          ['MessageSchedules.user_id' => $this->authUser['id']],
+          ['MessageSchedules.voice_id' => $id],
+        ]);;
+
+        $this->Flash->success(__('{0}の登録を解除しました。', $voice['name']));
+      } catch (AppException $exception) {
+        $this->Flash->error($exception->getMessage());
+
+        return $this->redirect($this->request->referer());
+      }
+    }
+
+    return $this->redirect([
+      'controller' => 'Home',
+      'action' => 'index',
+    ]);
   }
 }
 

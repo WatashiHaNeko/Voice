@@ -54,7 +54,7 @@ a:focus {
   top: 0;
   padding: 8px 16px;
   line-height: 16px;
-  background: #ffffff;
+  background: transparent;
   border: solid 2px #34c759;
   box-shadow: none;
   color: #34c759;
@@ -71,6 +71,31 @@ a:focus {
 }
 
 .button.secondary[disabled] {
+  opacity: 0.5;
+}
+
+.button.danger {
+  top: 0;
+  padding: 8px 16px;
+  line-height: 16px;
+  background: transparent;
+  border: solid 2px transparent;
+  box-shadow: none;
+  color: #ff3b30;
+  font-size: 16px;
+}
+
+.button.danger:hover {
+  background: #ff3b30;
+  border-color: #ff3b30;
+  color: #ffffff;
+}
+
+.button.danger:active {
+  transform: scale(0.9);
+}
+
+.button.danger[disabled] {
   opacity: 0.5;
 }
 
