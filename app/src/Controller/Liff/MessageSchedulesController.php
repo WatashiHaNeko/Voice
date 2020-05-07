@@ -67,5 +67,69 @@ class MessageSchedulesController extends LiffController {
       'messageSchedule',
     ]));
   }
+
+  public function update($id) {
+    $messageSchedule = $this->MessageSchedules->find()
+        ->where([
+          ['MessageSchedules.user_id' => $this->authUser['id']],
+          ['MessageSchedules.id' => $id],
+        ])
+        ->first();
+
+    if (empty($messageSchedule)) {
+      $this->Flash->error(__('通知が見つかりませんでした。'));
+
+      return $this->redirect($this->request->referer());
+    }
+
+    $voice = $this->Voices->find()
+        ->where([
+          ['Voices.user_id' => $this->authUser['id']],
+          ['Voices.id' => $messageSchedule['voice_id']],
+        ])
+        ->first();
+
+    if (empty($voice)) {
+      $this->Flash->error(__('ペットが見つかりませんでした。'));
+
+      return $this->redirect($this->request->referer());
+    }
+
+    if ($this->request->is(['put'])) {
+      try {
+        $scheduledTimeType = intval($this->request->getData('scheduled_time.type'));
+        $scheduledTimeHour = intval($this->request->getData('scheduled_time.hour')) + ($scheduledTimeType * 12);
+        $scheduledTimeMinute = intval($this->request->getData('scheduled_time.minute'));
+
+        $scheduledTime = (new Time(sprintf('%s:%s', $scheduledTimeHour, $scheduledTimeMinute), 'Asia/Tokyo'))->setTimezone('UTC');
+
+        $this->MessageSchedules->patchEntity($messageSchedule, [
+          'scheduled_time' => $scheduledTime,
+          'message' => $this->request->getData('message'),
+        ]);
+
+        $messageScheduleSaved = $this->MessageSchedules->save($messageSchedule);
+
+        if (!$messageScheduleSaved) {
+          throw new AppException(__('通知を更新できませんでした。'));
+        }
+
+        $this->Flash->success(__('通知を更新しました！'));
+
+        return $this->redirect([
+          'controller' => 'Voices',
+          'action' => 'view',
+          $voice['id'],
+        ]);
+      } catch (AppException $exception) {
+        $this->Flash->error($exception->getMessage());
+      }
+    }
+
+    $this->set(compact([
+      'voice',
+      'messageSchedule',
+    ]));
+  }
 }
 

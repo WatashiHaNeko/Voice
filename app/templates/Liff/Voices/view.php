@@ -37,7 +37,11 @@
     'padding-bottom' => '108px',
   ]) ?>">
   <?php foreach ($voice['message_schedules'] as $messageSchedule): ?>
-  <div style="<?= $this->Html->style([
+  <a href="<?= $this->Url->build([
+      'controller' => 'MessageSchedules',
+      'action' => 'update',
+      $messageSchedule['id'],
+    ]) ?>" style="<?= $this->Html->style([
       'display' => 'flex',
       'justify-content' => 'flex-start',
       'align-items' => 'stretch',
@@ -97,7 +101,7 @@
           'font-size' => '16px',
         ]) ?>"></i>
     </div>
-  </div>
+  </a>
   <?php endforeach; ?>
 </div>
 

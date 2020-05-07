@@ -15,6 +15,8 @@ $scheduledTimeMinuteOptions = [];
 for ($minute = 0; $minute < 60; $minute += 10) {
   $scheduledTimeMinuteOptions[$minute] = $minute;
 }
+
+$scheduledTime = $messageSchedule['scheduled_time']->copy()->setTimezone('Asia/Tokyo');
 ?>
 <div style="<?= $this->Html->style([
     'padding' => '16px',
@@ -118,7 +120,7 @@ for ($minute = 0; $minute < 60; $minute += 10) {
         </label>
 
         <?= $this->Form->select('scheduled_time[type]', $scheduledTimeTypeOptions, [
-          'value' => $this->request->getData('scheduled_time.type'),
+          'value' => $scheduledTime->hour < 12 ? '0' : '1',
           'id' => 'scheduled-time-type-field',
           'class' => 'field select',
         ]) ?>
@@ -136,7 +138,7 @@ for ($minute = 0; $minute < 60; $minute += 10) {
         </label>
 
         <?= $this->Form->select('scheduled_time[hour]', $scheduledTimeHourOptions, [
-          'value' => $this->request->getData('scheduled_time.hour'),
+          'value' => strval($scheduledTime->hour % 12),
           'id' => 'scheduled-time-hour-field',
           'class' => 'field select',
         ]) ?>
@@ -154,7 +156,7 @@ for ($minute = 0; $minute < 60; $minute += 10) {
         </label>
 
         <?= $this->Form->select('scheduled_time[minute]', $scheduledTimeMinuteOptions, [
-          'value' => $this->request->getData('scheduled_time.minute'),
+          'value' => strval($scheduledTime->minute),
           'id' => 'scheduled-time-minute-field',
           'class' => 'field select',
         ]) ?>
@@ -203,7 +205,7 @@ for ($minute = 0; $minute < 60; $minute += 10) {
         'margin-top' => '48px',
       ]) ?>">
       <button class="button">
-        <?= __('新しく通知を登録する') ?>
+        <?= __('通知を更新する') ?>
       </button>
     </div>
   <?= $this->Form->end() ?>
