@@ -75,6 +75,7 @@ class VoicesController extends LiffController {
           'MessageSchedules',
         ])
         ->where([
+          ['Voices.user_id' => $this->authUser['id']],
           ['Voices.id' => $id],
         ])
         ->first();
