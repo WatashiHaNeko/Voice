@@ -1,22 +1,13 @@
 <div style="<?= $this->Html->style([
-    'display' => 'flex',
-    'flex-direction' => 'column',
-    'justify-content' => 'center',
-    'align-items' => 'center',
-    'height' => '100vh',
+    'padding' => '64px 16px 16px',
   ]) ?>">
   <?= $this->Form->create($voice, [
     'type' => 'file',
     'novalidate' => true,
-    'style' => $this->Html->style([
-      'display' => 'flex',
-      'flex-direction' => 'column',
-      'align-items' => 'center',
-      'padding' => '16px',
-      'width' => 'calc(100% - 32px)',
-    ]),
   ]) ?>
     <label style="<?= $this->Html->style([
+        'display' => 'block',
+        'margin' => '0 auto',
         'width' => '148px',
         'height' => '148px',
       ]) ?>" class="avatar-image-container">
@@ -28,79 +19,34 @@
         ]),
       ]) ?>
 
-      <img src="<?= $this->Url->image('avatar-default.jpg') ?>" style="<?= $this->Html->style([
-          'display' => 'block',
-          'padding' => '4px',
-          'width' => '100%',
-          'height' => '100%',
-          'background-color' => '#ffffff',
-          'border' => 'solid 2px #d1d1d6',
-          'border-radius' => '50%',
-          'object-fit' => 'cover',
-        ]) ?>" id="avatar-image-preview">
+      <img src="<?= $this->Url->image('avatar-default.jpg') ?>" id="avatar-image-preview" class="avatar">
     </label>
 
-    <div style="<?= $this->Html->style([
-        'position' => 'relative',
-        'display' => 'flex',
-        'flex-direction' => 'column',
-        'align-items' => 'center',
+    <div class="field-container" style="<?= $this->Html->style([
         'margin-top' => '24px',
       ]) ?>">
-      <label style="<?= $this->Html->style([
-        'position' => 'absolute',
-        'top' => '8px',
-        'line-height' => '12px',
-        'color' => '#8e8e93',
-        'font-size' => '12px',
-        'font-weight' => '200',
-      ]) ?>">
+      <label class="field-label">
         <?= __('ペットのお名前') ?>
       </label>
 
       <?= $this->Form->text('name', [
-        'style' => $this->Html->style([
-          'padding' => '20px 24px 12px',
-          'width' => '240px',
-          'line-height' => '20px',
-          'border' => sprintf('solid 2px %s', $this->Form->isFieldError('name') ? '#ff3b30' : '#8e8e93'),
-          'border-radius' => '28px',
-          'text-align' => 'center',
-          'font-size' => '16px',
-          'font-weight' => '600',
+        'class' => implode(' ', [
+          'field',
+          $this->Form->isFieldError('name') ? 'invalid' : '',
         ]),
       ]) ?>
 
       <?php if ($this->Form->isFieldError('name')): ?>
-      <p style="<?= $this->Html->style([
-        'margin' => '4px 0 0',
-        'line-height' => '18px',
-        'color' => '#ff3b30',
-        'text-align' => 'center',
-        'font-size' => '12px',
-        'font-weight' => '600',
-      ]) ?>">
+      <p class="field-help invalid">
         <?= $this->Form->error('name') ?>
       </p>
       <?php endif; ?>
     </div>
 
     <div style="<?= $this->Html->style([
-        'margin-top' => '32px',
+        'margin-top' => '48px',
       ]) ?>">
-      <button style="<?= $this->Html->style([
-          'display' => 'block',
-          'padding' => '12px 24px',
-          'line-height' => '20px',
-          'background-color' => '#34c759',
-          'background' => 'linear-gradient(0, #34c759 0%, #30d158 50%)',
-          'border' => 'none',
-          'border-radius' => '21px',
-          'box-shadow' => '0px 4px 8px 0px #8e8e93',
-          'color' => '#ffffff',
-          'font-size' => '20px',
-          'font-weight' => '600',
-        ]) ?>">
+      <button class="button">
         <?= __('新しくペットを登録する') ?>
       </button>
     </div>

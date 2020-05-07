@@ -15,14 +15,9 @@
         'width' => '48px',
         'height' => '48px',
       ]) ?>">
-      <img src="<?= $voice->getAvatarImageUrl() ?>" style="<?= $this->Html->style([
-          'display' => 'block',
+      <img src="<?= $voice->getAvatarImageUrl() ?>" class="avatar" style="<?= $this->Html->style([
           'padding' => '2px',
-          'width' => '100%',
-          'height' => '100%',
-          'background-color' => '#ffffff',
           'border' => 'solid 1px #d1d1d6',
-          'border-radius' => '50%',
         ]) ?>">
     </div>
 
@@ -55,26 +50,14 @@
 
 <div style="<?= $this->Html->style([
     'position' => 'fixed',
-    'right' => '32px',
+    'right' => '16px',
     'bottom' => '32px',
-    'left' => '32px',
+    'left' => '16px',
   ]) ?>">
   <a href="<?= $this->Url->build([
       'controller' => 'Voices',
       'action' => 'create',
-    ]) ?>" style="<?= $this->Html->style([
-      'display' => 'block',
-      'padding' => '12px 24px',
-      'line-height' => '20px',
-      'background-color' => '#34c759',
-      'background' => 'linear-gradient(0, #34c759 0%, #30d158 50%)',
-      'border-radius' => '21px',
-      'box-shadow' => '0px 4px 8px 0px #8e8e93',
-      'color' => '#ffffff',
-      'font-size' => '20px',
-      'font-weight' => '600',
-      'text-align' => 'center',
-    ]) ?>">
+    ]) ?>" class="button">
     <?= __('新しくペットを登録する') ?>
   </a>
 </div>
