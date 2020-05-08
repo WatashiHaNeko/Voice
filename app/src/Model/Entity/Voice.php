@@ -40,7 +40,9 @@ class Voice extends Entity {
 
   public function getAvatarImageUrl() {
     if (empty($this['avatar_image_media_type'])) {
-      return Asset::imageUrl('avatar-default.jpg');
+      return Asset::imageUrl('avatar-default.jpg', [
+        'fullBase' => true,
+      ]);
     }
 
     return implode('/', [
