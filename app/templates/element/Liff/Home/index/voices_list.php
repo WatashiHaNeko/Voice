@@ -26,6 +26,7 @@
     </div>
 
     <div style="<?= $this->Html->style([
+        'flex' => 1,
         'margin-left' => '8px',
       ]) ?>">
       <p style="<?= $this->Html->style([
@@ -41,7 +42,7 @@
     <div style="<?= $this->Html->style([
         'display' => 'flex',
         'align-items' => 'center',
-        'margin-left' => 'auto',
+        'margin-left' => '8px',
       ]) ?>">
       <i class="fas fa-chevron-right" style="<?= $this->Html->style([
           'color' => '#8e8e93',

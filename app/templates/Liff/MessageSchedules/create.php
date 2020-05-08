@@ -16,6 +16,7 @@ for ($minute = 0; $minute < 60; $minute += 10) {
   $scheduledTimeMinuteOptions[$minute] = $minute;
 }
 ?>
+
 <div style="<?= $this->Html->style([
     'padding' => '16px',
   ]) ?>">
@@ -93,7 +94,7 @@ for ($minute = 0; $minute < 60; $minute += 10) {
   <?= $this->Form->create($messageSchedule, [
       'novalidate' => true,
       'style' => $this->Html->style([
-        'margin-top' => '48px',
+        'margin-top' => '24px',
       ]),
     ]) ?>
     <h2 style="<?= $this->Html->style([
@@ -162,7 +163,7 @@ for ($minute = 0; $minute < 60; $minute += 10) {
     </div>
 
     <h2 style="<?= $this->Html->style([
-        'margin' => '48px 0 0',
+        'margin' => '36px 0 0',
         'line-height' => '24px',
         'font-size' => '16px',
         'font-weight' => '600',

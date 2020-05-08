@@ -133,12 +133,19 @@ a:focus {
   padding: 20px 24px 12px;
   width: 100%;
   line-height: 20px;
+  background-image: none;
   background: #ffffff;
   border: solid 2px #8e8e93;
   border-radius: 28px;
   text-align: center;
   font-size: 16px;
   font-weight: 800;
+  box-shadow: none;
+  appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
 }
 
 .field.invalid {

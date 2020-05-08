@@ -5,7 +5,9 @@
     'background-color' => '#ffffff',
     'border-bottom' => 'solid 1px #d1d1d6',
   ]) ?>">
-  <div>
+  <div style="<?= $this->Html->style([
+      'flex' => 1,
+    ]) ?>">
     <div style="<?= $this->Html->style([
         'width' => '80px',
         'height' => '80px',
@@ -23,7 +25,9 @@
     </h1>
   </div>
 
-  <div>
+  <div style="<?= $this->Html->style([
+      'min-width' => '80px',
+    ]) ?>">
     <a href="<?= $this->Url->build([
         'action' => 'update',
         $voice['id'],
@@ -82,7 +86,8 @@
     </div>
 
     <div style="<?= $this->Html->style([
-        'margin-left' => '16px',
+        'flex' => 1,
+        'margin-left' => '8px',
       ]) ?>">
       <p style="<?= $this->Html->style([
           'margin' => '0',
@@ -94,7 +99,7 @@
     <div style="<?= $this->Html->style([
         'display' => 'flex',
         'align-items' => 'center',
-        'margin-left' => 'auto',
+        'margin-left' => '8px',
       ]) ?>">
       <i class="fas fa-chevron-right" style="<?= $this->Html->style([
           'color' => '#8e8e93',
