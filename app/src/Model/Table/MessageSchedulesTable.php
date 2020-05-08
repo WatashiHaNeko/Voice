@@ -15,11 +15,8 @@ class MessageSchedulesTable extends Table {
   }
 
   public function validationDefault(Validator $validator): Validator {
-    $validator->notEmpty([
-      'message' => [
-        'message' => __('メッセージを入力してください。'),
-      ],
-    ]);
+    $validator
+        ->notEmptyString('message', __('メッセージを入力してください。'));
 
     return $validator;
   }

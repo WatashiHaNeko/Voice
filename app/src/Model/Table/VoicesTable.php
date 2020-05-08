@@ -19,11 +19,8 @@ class VoicesTable extends Table {
   }
 
   public function validationDefault(Validator $validator): Validator {
-    $validator->notEmpty([
-      'name' => [
-        'message' => __('ペットのお名前を入力してください。'),
-      ],
-    ]);
+    $validator
+        ->notEmptyString('name', __('ペットのお名前を入力してください。'));
 
     return $validator;
   }
