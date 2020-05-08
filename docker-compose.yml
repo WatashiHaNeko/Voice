@@ -25,6 +25,7 @@ services:
       dockerfile: "Dockerfile.php-fpm"
     container_name: "voice-neko-report-php-fpm"
     volumes:
+      - "./php/php.ini:/usr/local/etc/php/php.ini"
       - "./app:/var/www/html"
     networks:
       voice-neko-report-network:
