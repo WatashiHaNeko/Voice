@@ -7,7 +7,6 @@ use App\Exception\Exception as AppException;
 use Cake\Controller\Component;
 use Cake\Core\Configure;
 use Cake\Http\Client;
-use Cake\Http\Request;
 
 class LineApiComponent extends Component {
   protected $_accessToken = null;
