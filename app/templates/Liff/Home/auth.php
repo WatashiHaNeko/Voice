@@ -5,8 +5,8 @@ echo $this->Form->create(null, [
   'id' => 'auth-form',
 ]);
 
-echo $this->Form->hidden('line_user_id', [
-  'id' => 'line-user-id-field',
+echo $this->Form->hidden('line_access_token', [
+  'id' => 'line-access-token-field',
 ]);
 
 echo $this->Form->end();
@@ -25,20 +25,10 @@ window.addEventListener("DOMContentLoaded", async (event) => {
     });
   }
 
-  const profile = await liff.getProfile().catch(() => {
-    return null;
-  });
-
-  if (!profile) {
-    alert("<?= __('LINEユーザー情報を取得できませんでした。') ?>");
-
-    return liff.closeWindow();
-  }
-
   const authForm = document.querySelector("#auth-form");
-  const lineUserIdField = document.querySelector("#line-user-id-field");
+  const lineAccessTokenField = document.querySelector("#line-access-token-field");
 
-  lineUserIdField.value = profile.userId;
+  lineAccessTokenField.value = liff.getAccessToken();
 
   authForm.submit();
 });

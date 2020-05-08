@@ -21,7 +21,9 @@ class LiffController extends AppController {
 
     $this->Auth->allow();
 
-    if ($this->request->getParam('controller') !== 'Home' || $this->request->getParam('action') !== 'auth') {
+    if ($this->request->getParam('controller') === 'Home' && $this->request->getParam('action') === 'auth') {
+    } else if ($this->request->getParam('controller') === 'Home' && $this->request->getParam('action') === 'officialAccount') {
+    } else {
       if (empty($this->Auth->user('id'))) {
         $this->redirect([
           'controller' => 'Home',

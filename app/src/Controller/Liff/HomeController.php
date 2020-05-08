@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Liff;
 
 use App\Exception\Exception as AppException;
+use Cake\Core\Configure;
 
 class HomeController extends LiffController {
   public function initialize(): void {
@@ -11,6 +12,8 @@ class HomeController extends LiffController {
 
     $this->loadModel('Users');
     $this->loadModel('Voices');
+
+    $this->loadComponent('LineApi');
   }
 
   public function index() {
@@ -32,21 +35,41 @@ class HomeController extends LiffController {
   public function auth() {
     if ($this->request->is(['post'])) {
       try {
-        $lineUserId = $this->request->getData('line_user_id');
+        $lineAccessToken = $this->request->getData('line_access_token');
 
-        if (empty($lineUserId)) {
+        if (empty($lineAccessToken)) {
+          throw new AppException(__('LINEユーザー情報を取得できませんでした。'));
+        }
+
+        $isAccessTokenValid = $this->LineApi->setAccessToken($lineAccessToken);
+
+        if (!$isAccessTokenValid) {
+          throw new AppException(__('LINEユーザー情報を取得できませんでした。'));
+        }
+
+        $hasFriendshipWithOfficialAccount = $this->LineApi->checkFriendshipWithOfficialAccount();
+
+        if (!$hasFriendshipWithOfficialAccount) {
+          return $this->redirect([
+            'action' => 'officialAccount',
+          ]);
+        }
+
+        $lineUserProfile = $this->LineApi->getUserProfile();
+
+        if (empty($lineUserProfile)) {
           throw new AppException(__('LINEユーザー情報を取得できませんでした。'));
         }
 
         $user = $this->Users->find()
             ->where([
-              ['Users.line_user_id' => $lineUserId],
+              ['Users.line_user_id' => $lineUserProfile['userId']],
             ])
             ->first();
 
         if (empty($user)) {
           $user = $this->Users->newEntity([
-            'line_user_id' => $lineUserId,
+            'line_user_id' => $lineUserProfile['userId'],
           ]);
 
           $userSaved = $this->Users->save($user);
@@ -67,6 +90,9 @@ class HomeController extends LiffController {
         'action' => 'index',
       ]);
     }
+  }
+
+  public function officialAccount() {
   }
 }
 
