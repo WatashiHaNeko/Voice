@@ -51,6 +51,26 @@
     </div>
   </a>
   <?php endforeach; ?>
+
+  <a href="<?= $this->Url->build([
+    'action' => 'help',
+  ]) ?>" style="<?= $this->Html->style([
+    'display' => 'flex',
+    'align-items' => 'baseline',
+    'margin' => '24px',
+    'padding' => '16px',
+    'border' => 'solid 1px #8e8e93',
+    'border-radius' => '8px',
+    'color' => '#8e8e93',
+  ]) ?>">
+    <i class="far fa-question-circle"></i>
+
+    <span style="<?= $this->Html->style([
+        'margin-left' => '16px',
+      ]) ?>">
+      <?= __('ご意見・お問い合わせ') ?>
+    </span>
+  </a>
 </div>
 
 <div style="<?= $this->Html->style([

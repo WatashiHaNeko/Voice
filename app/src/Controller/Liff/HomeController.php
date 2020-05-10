@@ -94,5 +94,8 @@ class HomeController extends LiffController {
 
   public function officialAccount() {
   }
+
+  public function help() {
+  }
 }
 
