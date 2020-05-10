@@ -24,7 +24,7 @@
     <?= $this->fetch('css') ?>
 
     <title>
-      Voice
+      <?= __('わんわんボイス') ?>
     </title>
   </head>
 
