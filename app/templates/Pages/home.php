@@ -6,6 +6,7 @@ $this->disableAutoLayout();
 <!doctype html>
 <html>
   <head>
+    <?= $this->element('google_analytics') ?>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="robots" content="noindex">
