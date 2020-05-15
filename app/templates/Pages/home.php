@@ -129,7 +129,7 @@ $this->disableAutoLayout();
 
     <div style="<?= $this->Html->style([
         'position' => 'relative',
-        'bottom' => '-40px',
+        'bottom' => '-24px',
         'margin' => '36px 0 0 ',
       ]) ?>">
       <img src="<?= $this->Url->image('usecase_1.png') ?>" style="<?= $this->Html->style([
