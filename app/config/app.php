@@ -7,7 +7,7 @@ use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
 
 return [
-  'debug' => true,
+  'debug' => false,
 
   'DebugKit' => [
     'safeTld' => [
