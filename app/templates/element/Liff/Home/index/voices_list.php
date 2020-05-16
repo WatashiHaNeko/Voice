@@ -127,6 +127,43 @@ use Cake\Core\Configure;
       <?= __('Twitterでシェア') ?>
     </span>
   </a>
+
+  <a href="<?= vsprintf('%s://%s/%s?%s', [
+    'https',
+    implode('.', ['www', 'facebook', 'com']),
+    implode('/', ['dialog', 'share']),
+    http_build_query([
+      'app_id' => Configure::read('Facebook.App.id'),
+      'hashtag' => sprintf('#%s', __('わんわんボイス')),
+      'href' => $this->Url->build([
+        'prefix' => false,
+        'controller' => 'Pages',
+        'action' => 'display',
+        'home',
+      ], [
+        'fullBase' => true,
+      ]),
+      'redirect_uri' => $this->Url->build([], [
+        'fullBase' => true,
+      ]),
+    ]),
+  ]) ?>" style="<?= $this->Html->style([
+    'display' => 'flex',
+    'align-items' => 'baseline',
+    'margin' => '24px',
+    'padding' => '16px',
+    'border' => 'solid 1px #2a28a4',
+    'border-radius' => '8px',
+    'color' => '#2a28a4',
+  ]) ?>">
+    <i class="fab fa-facebook"></i>
+
+    <span style="<?= $this->Html->style([
+        'margin-left' => '16px',
+      ]) ?>">
+      <?= __('Facebookでシェア') ?>
+    </span>
+  </a>
 </div>
 
 <div style="<?= $this->Html->style([
