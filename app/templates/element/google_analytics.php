@@ -6,5 +6,11 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-165940788-1');
+
+  gtag('set', {
+    <?php if (!empty($authUser)): ?>
+    'user_id': '<?= $authUser['id'] ?>',
+    <?php endif; ?>
+  });
 </script>
 

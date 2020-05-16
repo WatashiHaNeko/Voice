@@ -1,7 +1,9 @@
 <!doctype html>
 <html>
   <head>
-    <?= $this->element('google_analytics') ?>
+    <?= $this->element('google_analytics', [
+      'authUser' => $authUser,
+    ]) ?>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="robots" content="noindex">
