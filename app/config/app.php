@@ -24,7 +24,7 @@ return [
     'dir' => 'src',
     'webroot' => 'webroot',
     'wwwRoot' => WWW_ROOT,
-    'fullBaseUrl' => 'https://voice.neko.report',
+    'fullBaseUrl' => false,
     'imageBaseUrl' => 'img/',
     'cssBaseUrl' => 'css/',
     'jsBaseUrl' => 'js/',

@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+  server:
+    image: "nginx:1.18"
+    container_name: "dev-voice-neko-report-server"
+    environment:
+      VIRTUAL_HOST: "dev.voice.neko.report"
+      LETSENCRYPT_HOST: "dev.voice.neko.report"
+    volumes:
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/conf.d:/etc/nginx/conf.d"
+      - "./nginx/certs:/etc/nginx/certs"
+      - "./app:/usr/share/nginx/html"
+    networks:
+      dev-voice-neko-report-network:
+        aliases:
+          - "server"
+      nginx-network:
+
+  php-fpm:
+    image: "php-fpm:voice-neko-report"
+    build:
+      context: "./"
+      dockerfile: "Dockerfile.php-fpm"
+    container_name: "dev-voice-neko-report-php-fpm"
+    volumes:
+      - "./php/php.ini:/usr/local/etc/php/php.ini"
+      - "./app:/var/www/html"
+    networks:
+      dev-voice-neko-report-network:
+        aliases:
+          - "php-fpm"
+      mysql-network:
+
+networks:
+  dev-voice-neko-report-network:
+    name: "dev-voice-neko-report-network"
+    ipam:
+      config:
+        - subnet: "172.43.0.0/24"
+  nginx-network:
+    external: true
+  mysql-network:
+    external: true
+
