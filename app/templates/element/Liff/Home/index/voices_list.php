@@ -93,6 +93,40 @@ use Cake\Core\Configure;
       <?= __('LINEで友だちにシェア') ?>
     </span>
   </span>
+
+  <a href="<?= vsprintf('%s://%s/%s?%s', [
+    'https',
+    implode('.', ['twitter', 'com']),
+    implode('/', ['intent', 'tweet']),
+    http_build_query([
+      'hashtags' => __('わんわんボイス'),
+      'url' => $this->Url->build([
+        'prefix' => false,
+        'controller' => 'Pages',
+        'action' => 'display',
+        'home',
+      ], [
+        'fullBase' => true,
+      ]),
+      'in_reply_to' => Configure::read('Twitter.Ads.tweetId'),
+    ]),
+  ]) ?>" target="_blank" style="<?= $this->Html->style([
+    'display' => 'flex',
+    'align-items' => 'baseline',
+    'margin' => '24px',
+    'padding' => '16px',
+    'border' => 'solid 1px #0689c6',
+    'border-radius' => '8px',
+    'color' => '#0689c6',
+  ]) ?>">
+    <i class="fab fa-twitter"></i>
+
+    <span style="<?= $this->Html->style([
+        'margin-left' => '16px',
+      ]) ?>">
+      <?= __('Twitterでシェア') ?>
+    </span>
+  </a>
 </div>
 
 <div style="<?= $this->Html->style([
@@ -111,10 +145,6 @@ use Cake\Core\Configure;
 
 <?php $this->append('script'); ?>
 <script>
-window.addEventListener("error", async (event) => {
-  alert(event);
-});
-
 window.addEventListener("DOMContentLoaded", async (event) => {
   await liff.init({ liffId: "<?= Configure::read('Line.Liff.id') ?>" }).catch((error) => {
     alert(JSON.stringify(error, null, "  "));
