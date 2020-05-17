@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use App\Model\Table\VoicesTable;
+use App\Utility\MediaType;
 use Cake\Core\Configure;
 use Cake\ORM\Entity;
 use Cake\Routing\Asset;
@@ -24,8 +25,8 @@ class Voice extends Entity {
     $filename = 'avatar';
     $mediaType = $this['avatar_image_media_type'];
 
-    if (VoicesTable::checkMediaTypeSupported($mediaType)) {
-      $filename .= '.' . VoicesTable::getExtByMediaType($mediaType);
+    if (MediaType::checkMediaTypeSupported($mediaType)) {
+      $filename .= '.' . MediaType::getExtByMediaType($mediaType);
     }
 
     return $filename;
