@@ -7,6 +7,8 @@ class MediaType {
   const MEDIA_TYPE_EXT_MAP = [
     'image/jpeg' => 'jpg',
     'image/png' => 'png',
+    'video/mp4' => 'mp4',
+    'audio/x-m4a' => 'm4a',
   ];
 
   public static function checkMediaTypeSupported(string $mediaType): bool {

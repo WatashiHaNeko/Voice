@@ -29,3 +29,9 @@ $routes->prefix('liff', function (RouteBuilder $builder) {
   $builder->fallbacks(DashedRoute::class);
 });
 
+$routes->prefix('api', function (RouteBuilder $builder) {
+  $builder->setExtensions(['json']);
+
+  $builder->fallbacks(DashedRoute::class);
+});
+
