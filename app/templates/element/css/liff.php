@@ -170,5 +170,49 @@ a:focus {
   color: #ff3b30;
   font-weight: 800;
 }
+
+.settings-group {
+  margin: 24px 0;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 8px 16px;
+  background-color: #ffffff;
+  border-top: solid 1px #d1d1d6;
+  border-bottom: solid 1px #d1d1d6;
+  color: #1c1c1e;
+}
+
+.settings-item + .settings-item {
+  border-top: none;
+}
+
+.settings-item-label {
+  flex: 1;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.settings-item-indicator {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.settings-item-indicator-icon {
+  color: #8e8e93;
+  font-size: 16px;
+}
+
+.settings-item-help {
+  margin: 4px 0 12px;
+  padding: 0 16px;
+  color: #8e8e93;
+  font-size: 14px;
+}
 </style>
 
