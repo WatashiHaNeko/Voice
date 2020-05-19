@@ -29,6 +29,21 @@ $routes->prefix('liff', function (RouteBuilder $builder) {
   $builder->fallbacks(DashedRoute::class);
 });
 
+$routes->prefix('admin', function (RouteBuilder $builder) {
+  $builder->registerMiddleware('csrf', new CsrfProtectionMiddleware([
+    'httpOnly' => true,
+  ]));
+
+  $builder->applyMiddleware('csrf');
+
+  $builder->connect('/', [
+    'controller' => 'Home',
+    'action' => 'index',
+  ]);
+
+  $builder->fallbacks(DashedRoute::class);
+});
+
 $routes->prefix('api', function (RouteBuilder $builder) {
   $builder->setExtensions(['json']);
 
