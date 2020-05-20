@@ -94,6 +94,127 @@
         ]) ?>">
         <?= nl2br(h($messageSchedule['message'])) ?>
       </p>
+
+      <?php if ($messageSchedule['scheduled_weekday_1']
+          && $messageSchedule['scheduled_weekday_2']
+          && $messageSchedule['scheduled_weekday_3']
+          && $messageSchedule['scheduled_weekday_4']
+          && $messageSchedule['scheduled_weekday_5']
+          && $messageSchedule['scheduled_weekday_6']
+          && $messageSchedule['scheduled_weekday_7']): ?>
+      <div style="<?= $this->Html->style([
+          'display' => 'flex',
+          'margin-top' => '4px',
+        ]) ?>">
+        <span style="<?= $this->Html->style([
+            'padding' => '2px 4px',
+            'font-size' => '10px',
+            'border' => 'solid 1px #8e8e93',
+            'border-radius' => '7px',
+            'color' => '#8e8e93',
+          ]) ?>">
+          <?= __('毎日') ?>
+        </span>
+      </div>
+
+      <?php else: ?>
+
+      <div style="<?= $this->Html->style([
+          'display' => 'flex',
+          'margin-top' => '4px',
+        ]) ?>">
+        <?php if ($messageSchedule['scheduled_weekday_1']): ?>
+        <span style="<?= $this->Html->style([
+            'margin-right' => '4px',
+            'padding' => '2px 4px',
+            'font-size' => '10px',
+            'border' => 'solid 1px #ff2d55',
+            'border-radius' => '7px',
+            'color' => '#ff2d55',
+          ]) ?>">
+          <?= __('日') ?>
+        </span>
+        <?php endif; ?>
+
+        <?php if ($messageSchedule['scheduled_weekday_2']): ?>
+        <span style="<?= $this->Html->style([
+            'margin-right' => '4px',
+            'padding' => '2px 4px',
+            'font-size' => '10px',
+            'border' => 'solid 1px #8e8e93',
+            'border-radius' => '7px',
+            'color' => '#8e8e93',
+          ]) ?>">
+          <?= __('月') ?>
+        </span>
+        <?php endif; ?>
+
+        <?php if ($messageSchedule['scheduled_weekday_3']): ?>
+        <span style="<?= $this->Html->style([
+            'margin-right' => '4px',
+            'padding' => '2px 4px',
+            'font-size' => '10px',
+            'border' => 'solid 1px #8e8e93',
+            'border-radius' => '7px',
+            'color' => '#8e8e93',
+          ]) ?>">
+          <?= __('火') ?>
+        </span>
+        <?php endif; ?>
+
+        <?php if ($messageSchedule['scheduled_weekday_4']): ?>
+        <span style="<?= $this->Html->style([
+            'margin-right' => '4px',
+            'padding' => '2px 4px',
+            'font-size' => '10px',
+            'border' => 'solid 1px #8e8e93',
+            'border-radius' => '7px',
+            'color' => '#8e8e93',
+          ]) ?>">
+          <?= __('水') ?>
+        </span>
+        <?php endif; ?>
+
+        <?php if ($messageSchedule['scheduled_weekday_5']): ?>
+        <span style="<?= $this->Html->style([
+            'margin-right' => '4px',
+            'padding' => '2px 4px',
+            'font-size' => '10px',
+            'border' => 'solid 1px #8e8e93',
+            'border-radius' => '7px',
+            'color' => '#8e8e93',
+          ]) ?>">
+          <?= __('木') ?>
+        </span>
+        <?php endif; ?>
+
+        <?php if ($messageSchedule['scheduled_weekday_6']): ?>
+        <span style="<?= $this->Html->style([
+            'margin-right' => '4px',
+            'padding' => '2px 4px',
+            'font-size' => '10px',
+            'border' => 'solid 1px #8e8e93',
+            'border-radius' => '7px',
+            'color' => '#8e8e93',
+          ]) ?>">
+          <?= __('金') ?>
+        </span>
+        <?php endif; ?>
+
+        <?php if ($messageSchedule['scheduled_weekday_7']): ?>
+        <span style="<?= $this->Html->style([
+            'margin-right' => '4px',
+            'padding' => '2px 4px',
+            'font-size' => '10px',
+            'border' => 'solid 1px #22b3f7',
+            'border-radius' => '7px',
+            'color' => '#22b3f7',
+          ]) ?>">
+          <?= __('土') ?>
+        </span>
+        <?php endif; ?>
+      </div>
+      <?php endif; ?>
     </div>
 
     <div style="<?= $this->Html->style([

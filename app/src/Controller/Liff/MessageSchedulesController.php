@@ -5,6 +5,7 @@ namespace App\Controller\Liff;
 
 use App\Exception\Exception as AppException;
 use Cake\I18n\Time;
+use Cake\Log\Log;
 
 class MessageSchedulesController extends LiffController {
   public function initialize(): void {
@@ -36,6 +37,20 @@ class MessageSchedulesController extends LiffController {
         $scheduledTimeMinute = intval($this->request->getData('scheduled_time.minute'));
 
         $scheduledTime = new Time(sprintf('%s:%s', $scheduledTimeHour, $scheduledTimeMinute), 'Asia/Tokyo');
+
+        $messageSchedule = $this->MessageSchedules->newEntity([
+          'user_id' => $this->authUser['id'],
+          'voice_id' => $voiceId,
+          'scheduled_weekday_1' => $this->request->getData('scheduled_weekday_1') === '1',
+          'scheduled_weekday_2' => $this->request->getData('scheduled_weekday_2') === '1',
+          'scheduled_weekday_3' => $this->request->getData('scheduled_weekday_3') === '1',
+          'scheduled_weekday_4' => $this->request->getData('scheduled_weekday_4') === '1',
+          'scheduled_weekday_5' => $this->request->getData('scheduled_weekday_5') === '1',
+          'scheduled_weekday_6' => $this->request->getData('scheduled_weekday_6') === '1',
+          'scheduled_weekday_7' => $this->request->getData('scheduled_weekday_7') === '1',
+          'message' => $this->request->getData('message'),
+        ]);
+
         $nextSendDatetime = Time::now('Asia/Tokyo');
 
         if (($nextSendDatetime->hour * 60) + $nextSendDatetime->minute > ($scheduledTime->hour * 60) + $scheduledTime->minute) {
@@ -46,11 +61,20 @@ class MessageSchedulesController extends LiffController {
         $nextSendDatetime->minute($scheduledTime->minute);
         $nextSendDatetime->second(0);
 
-        $messageSchedule = $this->MessageSchedules->newEntity([
-          'user_id' => $this->authUser['id'],
-          'voice_id' => $voiceId,
+        $weekdayCheckLoopLimit = 6;
+
+        while ($this->request->getData(sprintf('scheduled_weekday_%s', $nextSendDatetime->i18nFormat('e'))) !== '1') {
+          $nextSendDatetime->addDay(1);
+
+          if ($weekdayCheckLoopLimit-- === 0) {
+            $messageSchedule->setError('scheduled_weekday', __('通知する曜日を選択してください。'));
+
+            throw new AppException(__('通知を登録できませんでした。'));
+          }
+        }
+
+        $this->MessageSchedules->patchEntity($messageSchedule, [
           'scheduled_time' => $scheduledTime->setTimezone('UTC'),
-          'message' => $this->request->getData('message'),
           'next_send_datetime' => $nextSendDatetime->setTimezone('UTC'),
         ]);
 
@@ -112,6 +136,18 @@ class MessageSchedulesController extends LiffController {
         $scheduledTimeMinute = intval($this->request->getData('scheduled_time.minute'));
 
         $scheduledTime = new Time(sprintf('%s:%s', $scheduledTimeHour, $scheduledTimeMinute), 'Asia/Tokyo');
+
+        $this->MessageSchedules->patchEntity($messageSchedule, [
+          'scheduled_weekday_1' => $this->request->getData('scheduled_weekday_1') === '1',
+          'scheduled_weekday_2' => $this->request->getData('scheduled_weekday_2') === '1',
+          'scheduled_weekday_3' => $this->request->getData('scheduled_weekday_3') === '1',
+          'scheduled_weekday_4' => $this->request->getData('scheduled_weekday_4') === '1',
+          'scheduled_weekday_5' => $this->request->getData('scheduled_weekday_5') === '1',
+          'scheduled_weekday_6' => $this->request->getData('scheduled_weekday_6') === '1',
+          'scheduled_weekday_7' => $this->request->getData('scheduled_weekday_7') === '1',
+          'message' => $this->request->getData('message'),
+        ]);
+
         $nextSendDatetime = Time::now('Asia/Tokyo');
 
         if (($nextSendDatetime->hour * 60) + $nextSendDatetime->minute > ($scheduledTime->hour * 60) + $scheduledTime->minute) {
@@ -122,9 +158,20 @@ class MessageSchedulesController extends LiffController {
         $nextSendDatetime->minute($scheduledTime->minute);
         $nextSendDatetime->second(0);
 
+        $weekdayCheckLoopLimit = 6;
+
+        while ($this->request->getData(sprintf('scheduled_weekday_%s', $nextSendDatetime->i18nFormat('e'))) !== '1') {
+          $nextSendDatetime->addDay(1);
+
+          if ($weekdayCheckLoopLimit-- === 0) {
+            $messageSchedule->setError('scheduled_weekday', __('通知する曜日を選択してください。'));
+
+            throw new AppException(__('通知を登録できませんでした。'));
+          }
+        }
+
         $this->MessageSchedules->patchEntity($messageSchedule, [
           'scheduled_time' => $scheduledTime->setTimezone('UTC'),
-          'message' => $this->request->getData('message'),
           'next_send_datetime' => $nextSendDatetime->setTimezone('UTC'),
         ]);
 

@@ -178,6 +178,59 @@ a:focus {
   font-weight: 800;
 }
 
+.checkbox-container {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkbox-cover {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border: solid 2px #8e8e93;
+  border-radius: 50%;
+  transition-duration: .2s;
+}
+
+.checkbox:checked + .checkbox-cover {
+  background: #007aff;
+  border-color: #007aff;
+}
+
+.checkbox:checked + .checkbox-cover::after {
+  position: absolute;
+  right: -4px;
+  bottom: 0;
+  content: url(<?= $this->Url->image('icons/check-green.svg') ?>);
+  box-sizing: border-box;
+  padding: 2px;
+  width: 24px;
+  height: 24px;
+  background: #ffffff;
+  border: solid 1px #34c759;
+  border-radius: 50%;
+}
+
+.checkbox-cover-label {
+  font-size: 16px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.checkbox:checked + .checkbox-cover .checkbox-cover-label {
+  color: #ffffff;
+}
+
 .settings-group {
   margin: 24px 0;
 }

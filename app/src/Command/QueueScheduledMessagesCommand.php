@@ -40,8 +40,22 @@ class QueueScheduledMessagesCommand extends Command {
         continue;
       }
 
+      $nextSendDatetime = (new Time($messageSchedule['next_send_datetime']))
+          ->setTimezone('Asia/Tokyo')
+          ->addDay(1);
+
+      $weekdayCheckLoopLimit = 6;
+
+      while (!$messageSchedule[sprintf('scheduled_weekday_%s', $nextSendDatetime->i18nFormat('e'))]) {
+        $nextSendDatetime->addDay(1);
+
+        if ($weekdayCheckLoopLimit-- === 0) {
+          break;
+        }
+      }
+
       $this->MessageSchedules->patchEntity($messageSchedule, [
-        'next_send_datetime' => $messageSchedule['next_send_datetime']->addDay(1),
+        'next_send_datetime' => $nextSendDatetime->setTimezone('UTC'),
       ]);
 
       $messageScheduleSaved = $this->MessageSchedules->save($messageSchedule);
