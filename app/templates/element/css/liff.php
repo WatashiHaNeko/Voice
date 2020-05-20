@@ -115,6 +115,13 @@ a:focus {
   position: relative;
 }
 
+.field-heading {
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
 .field-label {
   position: absolute;
   top: 8px;

@@ -97,12 +97,8 @@ for ($minute = 0; $minute < 60; $minute += 10) {
         'margin-top' => '24px',
       ]),
     ]) ?>
-    <h2 style="<?= $this->Html->style([
+    <h2 class="field-heading" style="<?= $this->Html->style([
         'margin' => '0',
-        'line-height' => '24px',
-        'font-size' => '16px',
-        'font-weight' => '600',
-        'text-align' => 'center',
       ]) ?>">
       <?= __('通知する時間を選択してください') ?>
     </h2>
@@ -162,12 +158,8 @@ for ($minute = 0; $minute < 60; $minute += 10) {
       </div>
     </div>
 
-    <h2 style="<?= $this->Html->style([
+    <h2 class="field-heading" style="<?= $this->Html->style([
         'margin' => '36px 0 0',
-        'line-height' => '24px',
-        'font-size' => '16px',
-        'font-weight' => '600',
-        'text-align' => 'center',
       ]) ?>">
       <?= __('メッセージを入力してください') ?>
     </h2>

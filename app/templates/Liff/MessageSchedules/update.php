@@ -45,11 +45,8 @@ $scheduledTime = $messageSchedule['scheduled_time']->copy()->setTimezone('Asia/T
     <div style="<?= $this->Html->style([
         'margin-left' => '8px',
       ]) ?>">
-      <p style="<?= $this->Html->style([
+      <p class="field-heading" style="<?= $this->Html->style([
           'margin' => '0',
-          'line-height' => '24px',
-          'font-size' => '16px',
-          'font-weight' => '600',
         ]) ?>">
         <?= h($voice['name']) ?>
       </p>
@@ -99,12 +96,8 @@ $scheduledTime = $messageSchedule['scheduled_time']->copy()->setTimezone('Asia/T
         'margin-top' => '24px',
       ]),
     ]) ?>
-    <h2 style="<?= $this->Html->style([
+    <h2 class="field-heading" style="<?= $this->Html->style([
         'margin' => '0',
-        'line-height' => '24px',
-        'font-size' => '16px',
-        'font-weight' => '600',
-        'text-align' => 'center',
       ]) ?>">
       <?= __('通知する時間を選択してください') ?>
     </h2>
