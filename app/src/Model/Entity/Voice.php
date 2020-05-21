@@ -21,9 +21,13 @@ class Voice extends Entity {
     ]);
   }
 
-  public function getAvatarImageFilename() {
-    $filename = 'avatar';
+  public function getAvatarImageFilename(bool $originalSize = false) {
+    $filename = $this['avatar_image_filename'];
     $mediaType = $this['avatar_image_media_type'];
+
+    if (!$originalSize) {
+      $filename .= '.400';
+    }
 
     if (MediaType::checkMediaTypeSupported($mediaType)) {
       $filename .= '.' . MediaType::getExtByMediaType($mediaType);
@@ -32,15 +36,15 @@ class Voice extends Entity {
     return $filename;
   }
 
-  public function getAvatarImageFilepath() {
+  public function getAvatarImageFilepath(bool $originalSize = false) {
     return implode(DS, [
       $this->getDirname(),
-      $this->getAvatarImageFilename(),
+      $this->getAvatarImageFilename($originalSize),
     ]);
   }
 
   public function getAvatarImageUrl() {
-    if (empty($this['avatar_image_media_type'])) {
+    if (empty($this['avatar_image_filename'])) {
       return Asset::imageUrl('avatar-default.jpg', [
         'fullBase' => true,
       ]);

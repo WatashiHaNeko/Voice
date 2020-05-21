@@ -1,9 +1,16 @@
 FROM "php:7.4-fpm"
 
 RUN apt update && apt upgrade -y && apt install -y \
+  libmagickwand-dev \
   libxml2-dev \
   libzip-dev \
   unzip
+
+RUN yes '' | pecl install \
+  imagick
+
+RUN docker-php-ext-enable \
+  imagick
 
 RUN docker-php-ext-install \
   intl \

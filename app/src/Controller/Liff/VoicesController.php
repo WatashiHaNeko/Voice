@@ -11,6 +11,8 @@ class VoicesController extends LiffController {
     parent::initialize();
 
     $this->loadModel('MessageSchedules');
+
+    $this->loadComponent('File');
   }
 
   public function create() {
@@ -45,15 +47,13 @@ class VoicesController extends LiffController {
               throw new AppException(__('ペットを登録できませんでした。'));
             }
 
-            if (!file_exists($voice->getDirname())) {
-              $isDirectoryMade = mkdir($voice->getDirname(), 0777, true);
+            $this->File->deployVoiceAvatarImage($voice, $avatarImageFile);
 
-              if (!$isDirectoryMade) {
-                throw new AppException(__('ペットを登録できませんでした。'));
-              }
+            $voiceSaved = $this->Voices->save($voice);
+
+            if (!$voiceSaved) {
+              throw new AppException(__('ペットを登録できませんでした。'));
             }
-
-            $avatarImageFile->moveTo($voice->getAvatarImageFilepath());
           }
         });
 
@@ -140,15 +140,13 @@ class VoicesController extends LiffController {
               throw new AppException(__('{0}の情報を更新できませんでした。', $voice['name']));
             }
 
-            if (!file_exists($voice->getDirname())) {
-              $isDirectoryMade = mkdir($voice->getDirname(), 0777, true);
+            $this->File->deployVoiceAvatarImage($voice, $avatarImageFile);
 
-              if (!$isDirectoryMade) {
-                throw new AppException(__('{0}の情報を更新できませんでした。', $voice['name']));
-              }
+            $voiceSaved = $this->Voices->save($voice);
+
+            if (!$voiceSaved) {
+              throw new AppException(__('{0}の情報を更新できませんでした。', $voice['name']));
             }
-
-            $avatarImageFile->moveTo($voice->getAvatarImageFilepath());
           }
         });
 
