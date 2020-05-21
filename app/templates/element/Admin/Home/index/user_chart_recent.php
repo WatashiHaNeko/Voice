@@ -38,6 +38,7 @@ foreach ($usersCreatedList as $created) {
 }
 
 $width = intval(100 + (16 * count($usersCountMapByDate)));
+$width = $width > 1000 ? $width : 1000;
 $height = 250;
 
 $style['min-width'] = sprintf('%dpx', $width);
@@ -98,6 +99,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
         yAxes: [
           {
             ticks: {
+              min: 0,
               stepSize: 1,
             },
           },

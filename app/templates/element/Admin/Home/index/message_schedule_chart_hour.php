@@ -68,6 +68,7 @@ window.addEventListener("DOMContentLoaded", async (event) => {
         yAxes: [
           {
             ticks: {
+              min: 0,
               stepSize: 1,
             },
           },
