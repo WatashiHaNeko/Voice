@@ -184,3 +184,37 @@ foreach ($usersCreatedList as $created) {
   </div>
 </div>
 
+<h2 class="mt-4">
+  <?= __('Message Schedule Analytics') ?>
+</h2>
+
+<div class="row">
+  <div class="col-md-6">
+    <h3 class="mt-3">
+      <?= __('Message Schedule (Hour)') ?>
+    </h3>
+
+    <div class="card">
+      <div class="card-body">
+        <?= $this->element('Admin/Home/index/message_schedule_chart_hour', [
+          'messageSchedules' => $messageSchedules,
+        ]) ?>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h3 class="mt-3">
+      <?= __('Message Schedule (Weekday)') ?>
+    </h3>
+
+    <div class="card">
+      <div class="card-body">
+        <?= $this->element('Admin/Home/index/message_schedule_chart_week', [
+          'messageSchedules' => $messageSchedules,
+        ]) ?>
+      </div>
+    </div>
+  </div>
+</div>
+
