@@ -11,6 +11,7 @@ $usersCountMapBySpan = [
   'week' => 0,
   'month' => 0,
   'year' => 0,
+  'total' => 0,
 ];
 
 foreach ($usersCreatedList as $created) {
@@ -21,6 +22,8 @@ foreach ($usersCreatedList as $created) {
   $todayDateFormatString = $today->i18nFormat('yyyy.MM.dd');
   $createdYearWeekFormatString = $created->i18nFormat('yyyy.w');
   $todayYearWeekFormatString = $today->i18nFormat('yyyy.w');
+
+  $usersCountMapBySpan['total']++;
 
   if ($createdYearWeekFormatString === $todayYearWeekFormatString) {
     $usersCountMapBySpan['week']++;
@@ -49,6 +52,26 @@ foreach ($usersCreatedList as $created) {
 <h2 class="mt-4">
   <?= __('User Analytics') ?>
 </h2>
+
+<h3 class="mt-3">
+  <?= __('Total Users') ?>
+</h3>
+
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="h6 text-center text-nowrap">
+          <?= __('Total') ?>
+        </h4>
+
+        <div class="display-4 text-center text-nowrap">
+          <?= h($usersCountMapBySpan['total']) ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <h3 class="mt-3">
   <?= __('New Users (Span Type)') ?>
