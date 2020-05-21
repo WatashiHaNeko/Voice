@@ -46,6 +46,17 @@ window.addEventListener("DOMContentLoaded", async (event) => {
         },
       ],
     },
+    options: {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              stepSize: 1,
+            },
+          },
+        ],
+      },
+    },
   });
 });
 </script>
