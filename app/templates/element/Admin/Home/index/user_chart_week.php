@@ -4,7 +4,6 @@ $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart
 ]);
 
 $usersCreatedList = !empty($usersCreatedList) ? $usersCreatedList : [];
-$style = !empty($style) ? $style : [];
 
 $usersCountMapByWeek = [
   'Sun' => 0,
@@ -23,7 +22,7 @@ foreach ($usersCreatedList as $created) {
 }
 ?>
 
-<canvas id="user-chart-week-canvas" style="<?= $this->Html->style($style) ?>"></canvas>
+<canvas id="user-chart-week-canvas"></canvas>
 
 <?php $this->append('script'); ?>
 <script>

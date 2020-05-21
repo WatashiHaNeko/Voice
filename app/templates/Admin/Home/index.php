@@ -2,9 +2,9 @@
 use Cake\I18n\Time;
 
 $today = Time::now('Asia/Tokyo')
-  ->hour(0)
-  ->minute(0)
-  ->second(0);
+    ->hour(0)
+    ->minute(0)
+    ->second(0);
 
 $usersCountMapBySpan = [
   'day' => 0,
@@ -51,7 +51,7 @@ foreach ($usersCreatedList as $created) {
 </h2>
 
 <h3 class="mt-3">
-  <?= __('New Users') ?>
+  <?= __('New Users (Span Type)') ?>
 </h3>
 
 <div class="row">
@@ -118,6 +118,10 @@ foreach ($usersCreatedList as $created) {
 
 <div class="row">
   <div class="col-md-6">
+    <h3 class="mt-3">
+      <?= __('New Users (Hour)') ?>
+    </h3>
+
     <div class="card">
       <div class="card-body">
         <?= $this->element('Admin/Home/index/user_chart_hour', [
@@ -128,6 +132,10 @@ foreach ($usersCreatedList as $created) {
   </div>
 
   <div class="col-md-6">
+    <h3 class="mt-3">
+      <?= __('New Users (Weekday)') ?>
+    </h3>
+
     <div class="card">
       <div class="card-body">
         <?= $this->element('Admin/Home/index/user_chart_week', [
