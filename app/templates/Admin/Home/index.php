@@ -136,8 +136,23 @@ foreach ($usersCreatedList as $created) {
 </div>
 
 <h3 class="mt-3">
-  <?= __('User Registration Analysis') ?>
+  <?= __('New Users (Recent)') ?>
 </h3>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body" style="<?= $this->Html->style([
+          'overflow-x' => 'scroll',
+          'direction' => 'rtl',
+        ]) ?>">
+        <?= $this->element('Admin/Home/index/user_chart_recent', [
+          'usersCreatedList' => $usersCreatedList,
+        ]) ?>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-6">
