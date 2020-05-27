@@ -2,9 +2,16 @@
   <div class="col-auto">
     <a href="<?= $this->Url->build([
       'action' => 'create',
+      $broadcast['id'],
     ]) ?>" class="btn btn-primary">
-      <?= __('New Broadcast') ?>
+      <?= __('New BroadcastMessage') ?>
     </a>
+  </div>
+</div>
+
+<div class="card mt-2">
+  <div class="card-body">
+    <?= h($broadcast['title']) ?>
   </div>
 </div>
 
@@ -18,7 +25,7 @@
       </th>
 
       <th scope="col">
-        <?= __('Title') ?>
+        <?= __('Message') ?>
       </th>
 
       <th scope="col" style="<?= $this->Html->style([
@@ -30,24 +37,18 @@
   </thead>
 
   <tbody>
-    <?php foreach ($broadcasts as $broadcast): ?>
+    <?php foreach ($broadcast['broadcast_messages'] as $broadcastMessage): ?>
     <tr>
       <td>
-        <?= h($broadcast['id']) ?>
+        <?= h($broadcastMessage['id']) ?>
       </td>
 
       <td>
-        <a href="<?= $this->Url->build([
-            'controller' => 'BroadcastMessages',
-            'action' => 'index',
-            $broadcast['id'],
-          ]) ?>">
-          <?= h($broadcast['title']) ?>
-        </a>
+        <?= nl2br(h($broadcastMessage['message'])) ?>
       </td>
 
       <td>
-        <?= $broadcast['created']->i18nFormat('yyyy/MM/dd') ?>
+        <?= $broadcastMessage['created']->i18nFormat('yyyy/MM/dd') ?>
       </td>
     </tr>
     <?php endforeach; ?>

@@ -28,6 +28,21 @@
             <?= __('Home') ?>
           </a>
         </li>
+
+        <li class="<?= implode(' ', [
+            'nav-item',
+            in_array($this->request->getParam('controller'), [
+              'Broadcasts',
+              'BroadcastMessages',
+            ]) ? 'active' : '',
+          ]) ?>">
+          <a href="<?= $this->Url->build([
+              'controller' => 'Broadcasts',
+              'action' => 'index',
+            ]) ?>" class="nav-link">
+            <?= __('Broadcasts') ?>
+          </a>
+        </li>
       </ul>
     </header>
 

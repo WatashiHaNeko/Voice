@@ -6,16 +6,16 @@ namespace App\Model\Table;
 use App\ORM\Table;
 use Cake\Validation\Validator;
 
-class BroadcastsTable extends Table {
+class BroadcastMessagesTable extends Table {
   public function initialize(array $config): void {
     parent::initialize($config);
 
-    $this->hasMany('BroadcastMessages');
+    $this->belongsTo('Broadcasts');
   }
 
   public function validationDefault(Validator $validator): Validator {
     $validator
-        ->notEmptyString('title');
+        ->notEmptyString('message');
 
     return $validator;
   }
