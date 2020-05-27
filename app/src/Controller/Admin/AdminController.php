@@ -24,7 +24,7 @@ class AdminController extends AppController {
 
     if (empty($this->Auth->user('id')) || !in_array($this->Auth->user('id'), Configure::read('Admin.userIds'))) {
       $this->redirect([
-        'prefix' => 'liff',
+        'prefix' => 'Liff',
         'controller' => 'Home',
         'action' => 'auth',
       ]);
