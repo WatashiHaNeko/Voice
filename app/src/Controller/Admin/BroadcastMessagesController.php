@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Exception\Exception as AppException;
-use Cake\Core\Configure;
-use Cake\Http\Client;
 use Cake\Log\Log;
 
 class BroadcastMessagesController extends AdminController {

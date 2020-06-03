@@ -1,4 +1,23 @@
-<div class="row justify-content-end">
+<div class="row justify-content-between">
+  <div class="col-auto flex">
+    <?= $this->Form->postLink(__('Send to Admin Users'), [
+      'controller' => 'Broadcasts',
+      'action' => 'sendToAdminUsers',
+      $broadcast['id'],
+    ], [
+      'confirm' => __('Are you sure you want to send messages to admin users?'),
+      'block' => true,
+      'class' => 'btn btn-warning',
+    ]) ?>
+
+    <?= $this->Form->postLink(__('Send to All Users'), [
+    ], [
+      'confirm' => __('Are you sure you want to send messages to all users?'),
+      'block' => true,
+      'class' => 'btn btn-danger',
+    ]) ?>
+  </div>
+
   <div class="col-auto">
     <a href="<?= $this->Url->build([
       'action' => 'create',
