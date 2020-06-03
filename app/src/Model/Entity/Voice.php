@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
-use App\Model\Table\VoicesTable;
 use App\Utility\MediaType;
 use Cake\Core\Configure;
 use Cake\ORM\Entity;
@@ -43,7 +42,7 @@ class Voice extends Entity {
     ]);
   }
 
-  public function getAvatarImageUrl() {
+  public function getAvatarImageUrl(bool $originalSize = false) {
     if (empty($this['avatar_image_filename'])) {
       return Asset::imageUrl('avatar-default.jpg', [
         'fullBase' => true,
@@ -53,7 +52,7 @@ class Voice extends Entity {
     return implode('/', [
       Configure::read('App.fullBaseUrl'),
       'upload', 'voices', $this['id'],
-      $this->getAvatarImageFilename(),
+      $this->getAvatarImageFilename($originalSize),
     ]);
   }
 }
