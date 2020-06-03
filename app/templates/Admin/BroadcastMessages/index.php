@@ -51,6 +51,10 @@
 
       <td>
         <?= nl2br(h($broadcastMessage['message'])) ?>
+
+        <?php if (!empty($broadcastMessage['image_filename'])): ?>
+        <img src="<?= $broadcastMessage->getImageUrl() ?>" class="img-thumbnail d-block mt-2">
+        <?php endif; ?>
       </td>
 
       <td>

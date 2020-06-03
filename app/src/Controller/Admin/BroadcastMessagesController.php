@@ -4,12 +4,18 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Exception\Exception as AppException;
+use Cake\Core\Configure;
+use Cake\Http\Client;
+use Cake\Log\Log;
 
 class BroadcastMessagesController extends AdminController {
   public function initialize(): void {
     parent::initialize();
 
     $this->loadModel('Broadcasts');
+    $this->loadModel('Users');
+
+    $this->loadComponent('File');
   }
 
   public function create(string $broadcastId) {
@@ -37,10 +43,34 @@ class BroadcastMessagesController extends AdminController {
           'message' => $this->request->getData('message'),
         ]);
 
-        $broadcastSaved = $this->BroadcastMessages->save($broadcastMessage);
+        $broadcastMessageSaved = $this->BroadcastMessages->save($broadcastMessage);
 
-        if (!$broadcastSaved) {
+        if (!$broadcastMessageSaved) {
           throw new AppException(__('Failed to save BroadcastMessage.'));
+        }
+
+        $imageFile = $this->request->getData('image_file');
+
+        if ($imageFile->getError() !== UPLOAD_ERR_NO_FILE) {
+          if ($imageFile->getError() !== UPLOAD_ERR_OK) {
+            throw new AppException(__('Failed to upload image file.'));
+          }
+
+          $broadcastMessage['image_media_type'] = $imageFile->getClientMediaType();
+
+          $broadcastMessageSaved = $this->BroadcastMessages->save($broadcastMessage);
+
+          if (!$broadcastMessageSaved) {
+            throw new AppException(__('Failed to save BroadcastMessage.'));
+          }
+
+          $this->File->deployBroadcastMessageImage($broadcastMessage, $imageFile);
+
+          $broadcastMessageSaved = $this->BroadcastMessages->save($broadcastMessage);
+
+          if (!$broadcastMessageSaved) {
+            throw new AppException(__('Failed to save BroadcastMessage.'));
+          }
         }
 
         $this->Flash->success(__('Created new BroadcastMessage.'));

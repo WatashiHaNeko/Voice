@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Component;
 
 use App\Exception\Exception as AppException;
+use App\Model\Entity\BroadcastMessage;
 use App\Model\Entity\Voice;
 use Cake\Controller\Component;
 use Cake\I18n\Time;
@@ -43,6 +44,45 @@ class FileComponent extends Component {
     $imagick->resizeImage(400, 400, Imagick::FILTER_LANCZOS, 1, true);
 
     $imageWritten = $imagick->writeImage($voice->getAvatarImageFilepath());
+
+    if (!$imageWritten) {
+      throw new AppException(__('画像を保存できませんでした。'));
+    }
+
+    unlink($tmpFilename);
+  }
+
+  public function deployBroadcastMessageImage(BroadcastMessage $broadcastMessage, UploadedFile $file): void {
+    $dirname = $broadcastMessage->getDirname();
+
+    if (!file_exists($dirname)) {
+      $isDirectoryMade = mkdir($dirname);
+
+      if (!$isDirectoryMade) {
+        throw new AppException(__('画像を保存できませんでした。'));
+      }
+    }
+
+    $tmpFilename = vsprintf('%s/tmp-%s', [
+      $dirname,
+      Time::now()->i18nFormat('yyyyMMddHHmmss'),
+    ]);
+
+    $file->moveTo($tmpFilename);
+
+    $broadcastMessage['image_filename'] = hash_file('sha256', $tmpFilename);
+
+    $imagick = new Imagick($tmpFilename);
+
+    $imageWritten = $imagick->writeImage($broadcastMessage->getImageFilepath(true));
+
+    if (!$imageWritten) {
+      throw new AppException(__('画像を保存できませんでした。'));
+    }
+
+    $imagick->resizeImage(400, 400, Imagick::FILTER_LANCZOS, 1, true);
+
+    $imageWritten = $imagick->writeImage($broadcastMessage->getImageFilepath());
 
     if (!$imageWritten) {
       throw new AppException(__('画像を保存できませんでした。'));
