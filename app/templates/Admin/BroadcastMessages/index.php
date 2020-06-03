@@ -33,6 +33,12 @@
         ]) ?>">
         <?= __('Created') ?>
       </th>
+
+      <th scope="col" style="<?= $this->Html->style([
+          'width' => '132px',
+        ]) ?>">
+        <?= __('#') ?>
+      </th>
     </tr>
   </thead>
 
@@ -49,6 +55,23 @@
 
       <td>
         <?= $broadcastMessage['created']->i18nFormat('yyyy/MM/dd') ?>
+      </td>
+
+      <td>
+        <a href="#" class="btn btn-warning btn-block btn-sm">
+          <?= __('Update') ?>
+        </a>
+
+        <?= $this->Form->postLink(__('Delete'), [
+          'action' => 'delete',
+          $broadcast['id'],
+          $broadcastMessage['id'],
+        ], [
+          'method' => 'delete',
+          'confirm' => __('Are you sure you want to delete this BroadcastMessage?'),
+          'block' => true,
+          'class' => 'btn btn-danger btn-block btn-sm',
+        ]) ?>
       </td>
     </tr>
     <?php endforeach; ?>

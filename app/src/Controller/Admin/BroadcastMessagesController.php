@@ -83,5 +83,52 @@ class BroadcastMessagesController extends AdminController {
       'broadcast',
     ]));
   }
+
+  public function delete(string $broadcastId, string $id) {
+    $broadcast = $this->Broadcasts->find()
+        ->where([
+          ['Broadcasts.id' => $broadcastId],
+        ])
+        ->first();
+
+    if (empty($broadcast)) {
+      $this->Flash->error(__('Failed to find Broadcast.'));
+
+      return $this->redirect([
+        'controller' => 'Broadcasts',
+        'action' => 'index',
+      ]);
+    }
+
+    if ($this->request->is(['delete'])) {
+      try {
+        $broadcastMessage = $this->BroadcastMessages->find()
+            ->where([
+              ['BroadcastMessages.broadcast_id' => $broadcast['id']],
+              ['BroadcastMessages.id' => $id],
+            ])
+            ->first();
+
+        if (empty($broadcastMessage)) {
+          throw new AppException(__('Failed to find BroadcastMessage.'));
+        }
+
+        $broadcastMessageDeleted = $this->BroadcastMessages->delete($broadcastMessage);
+
+        if (!$broadcastMessageDeleted) {
+          throw new AppException(__('Failed to delete BroadcastMessage.'));
+        }
+
+        $this->Flash->success(__('Deleted BroadcastMessage.'));
+      } catch (AppException $exception) {
+        $this->Flash->error($exception->getMessage());
+      }
+    }
+
+    return $this->redirect([
+      'action' => 'index',
+      $broadcast['id'],
+    ]);
+  }
 }
 
